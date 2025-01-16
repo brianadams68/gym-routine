@@ -1,0 +1,11 @@
+{
+  "name": "gym-routine",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\""
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
