@@ -1,22 +1,30 @@
-import { Configuration, OpenAIApi } from "openai";
+import axios from "axios";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY, // Store API Key in Vercel environment variables
-});
-
-const openai = new OpenAIApi(configuration);
+const apiKey = process.env.GEMINI_API_KEY;
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: req.body.prompt, // Pass dynamic prompt from frontend (e.g., "Generate a full body workout routine"),
-        max_tokens: 150,
-      });
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          contents: [
+            {
+              parts: [{ text: req.body.prompt }],
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
 
-      res.status(200).json({ routine: response.data.choices[0].text });
+      res.status(200).json({ routine: response.data });
     } catch (error) {
+      console.error(error);
       res.status(500).json({ error: "Failed to generate routine" });
     }
   } else {
