@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md max-w-lg w-full">
-        <h1 className="text-3xl font-semibold text-center mb-4">EarlyBird Rountines</h1>
+        <h1 className="text-3xl font-semibold text-center mb-4">EarlyBird Rountine</h1>
 
         {/* Input for routine type */}
         <div className="mb-4">
